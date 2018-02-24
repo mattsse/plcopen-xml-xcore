@@ -1,0 +1,14 @@
+bin
+target
+xtend-gen
+xtext-gen
+src-gen
+text
+META-INF
+*.DS_Store
+*.settings
+*.project
+*.classpath
+plugin.xml
+build.properties
+plugin.properties
