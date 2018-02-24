@@ -1,15 +1,15 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
 
-  <groupId>org.plcopen</groupId>
-  <artifactId>org.plcopen.xml.xcore</artifactId>
-  <version>1.0.0</version>
-  <packaging>jar</packaging>
+	<groupId>org.plcopen</groupId>
+	<artifactId>org.plcopen.xml.xcore</artifactId>
+	<version>1.0.0</version>
+	<packaging>jar</packaging>
 
-  <name>org.plcopen.xml.xcore</name>
+	<name>org.plcopen.xml.xcore</name>
 
-  <properties>
+	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<maven.compiler.source>1.8</maven.compiler.source>
 		<maven.compiler.target>1.8</maven.compiler.target>
@@ -194,6 +194,11 @@
 		<dependency>
 			<groupId>org.eclipse.emf</groupId>
 			<artifactId>org.eclipse.emf.ecore</artifactId>
+			<version>${emf-version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.eclipse.emf</groupId>
+			<artifactId>org.eclipse.emf.ecore.xmi</artifactId>
 			<version>${emf-version}</version>
 		</dependency>
 	</dependencies>
