@@ -113,7 +113,7 @@ class ActionObject {
 	Decimal width
 }
 
-@ExtendedMetaData(name="action_._1_._type", kind="elementOnly")
+@ExtendedMetaData(name="action_._type", kind="elementOnly")
 class PouAction {
 	@ExtendedMetaData(kind="element", name="body", namespace="##targetNamespace")
 	contains Body[1] body
@@ -732,7 +732,7 @@ class FBD {
 	@ExtendedMetaData(kind="element", name="jump", namespace="##targetNamespace", group="#group:0")
 	contains transient volatile derived Jump[] jump
 	@ExtendedMetaData(kind="element", name="return", namespace="##targetNamespace", group="#group:0")
-	contains transient volatile derived ReturnType[] ^return
+	contains transient volatile derived Return[] ^return
 }
 
 @ExtendedMetaData(name="fileHeader_._type", kind="empty")
@@ -1034,7 +1034,7 @@ class LD {
 	@ExtendedMetaData(kind="element", name="jump", namespace="##targetNamespace", group="#group:0")
 	contains transient volatile derived Jump[] jump
 	@ExtendedMetaData(kind="element", name="return", namespace="##targetNamespace", group="#group:0")
-	contains transient volatile derived ReturnType[] ^return
+	contains transient volatile derived Return[] ^return
 	@ExtendedMetaData(kind="element", name="leftPowerRail", namespace="##targetNamespace", group="#group:0")
 	contains transient volatile derived LeftPowerRail[] leftPowerRail
 	@ExtendedMetaData(kind="element", name="rightPowerRail", namespace="##targetNamespace", group="#group:0")
@@ -1308,7 +1308,7 @@ class Resource {
 
 @GenModel(documentation="Describes a graphical object representing\n\t\t\t\t\t\t\tareturn statement")
 @ExtendedMetaData(name="return_._type", kind="elementOnly")
-class ReturnType {
+class Return {
 	@ExtendedMetaData(kind="element", name="position", namespace="##targetNamespace")
 	contains Position[1] position
 	@ExtendedMetaData(kind="element", name="connectionPointIn", namespace="##targetNamespace")
@@ -1444,7 +1444,7 @@ class SFC {
 	@ExtendedMetaData(kind="element", name="jump", namespace="##targetNamespace", group="#group:0")
 	contains transient volatile derived Jump[] jump
 	@ExtendedMetaData(kind="element", name="return", namespace="##targetNamespace", group="#group:0")
-	contains transient volatile derived ReturnType[] ^return
+	contains transient volatile derived Return[] ^return
 	@ExtendedMetaData(kind="element", name="leftPowerRail", namespace="##targetNamespace", group="#group:0")
 	contains transient volatile derived LeftPowerRail[] leftPowerRail
 	@ExtendedMetaData(kind="element", name="rightPowerRail", namespace="##targetNamespace", group="#group:0")
@@ -1639,7 +1639,7 @@ class SfcTransition {
 }
 
 // sfc
-@ExtendedMetaData(name="transition_._1_._type", kind="elementOnly")
+@ExtendedMetaData(name="transition_._type", kind="elementOnly")
 class PouTransition {
 	@ExtendedMetaData(kind="element", name="position", namespace="##targetNamespace")
 	contains Position[1] position
@@ -1702,14 +1702,14 @@ class MemberValue extends Value {
 	String[1] member
 }
 
-@ExtendedMetaData(name="value_._1_._type", kind="elementOnly")
+@ExtendedMetaData(name="value_._type", kind="elementOnly")
 class RepititionValue extends Value {
 	@ExtendedMetaData(kind="attribute", name="repetitionValue")
 	unsettable String repetitionValue = "1"
 }
 
 @GenModel(documentation="An enumeration value used to build up\n\t\t\t\t\t\t\t\t\t\t\t\t\tenumeration types")
-@ExtendedMetaData(name="value_._2_._type", kind="empty")
+@ExtendedMetaData(name="value_._type", kind="empty")
 class EnumerationValue {
 	@ExtendedMetaData(kind="attribute", name="name")
 	String[1] name
@@ -1737,7 +1737,7 @@ class InputVariable {
 }
 
 @GenModel(documentation="Describes a outputVariable of a Function\n\t\t\t\t\t\t\t\t\t\t\t\t\tor a FunctionBlock")
-@ExtendedMetaData(name="variable_._1_._type", kind="elementOnly")
+@ExtendedMetaData(name="variable_._type", kind="elementOnly")
 class OutputVariable {
 	@ExtendedMetaData(kind="element", name="connectionPointOut", namespace="##targetNamespace")
 	contains ConnectionPointOut connectionPointOut
@@ -1756,7 +1756,7 @@ class OutputVariable {
 }
 
 @GenModel(documentation="Describes a inOutVariable of a Function\n\t\t\t\t\t\t\t\t\t\t\t\t\tor a FunctionBlock")
-@ExtendedMetaData(name="variable_._3_._type", kind="elementOnly")
+@ExtendedMetaData(name="variable_._type", kind="elementOnly")
 class InputOutputVariable {
 	@ExtendedMetaData(kind="element", name="connectionPointIn", namespace="##targetNamespace")
 	contains ConnectionPointIn connectionPointIn
@@ -1777,8 +1777,8 @@ class InputOutputVariable {
 }
 
 @GenModel(documentation="Declaration of a variable")
-@ExtendedMetaData(name="variable_._6_._type", kind="elementOnly")
-class VariableType6 {
+@ExtendedMetaData(name="variable_._type", kind="elementOnly")
+class PlainVariable {
 	@ExtendedMetaData(kind="element", name="type", namespace="##targetNamespace")
 	contains DataType[1] ^type
 	@ExtendedMetaData(kind="element", name="initialValue", namespace="##targetNamespace")
@@ -1838,7 +1838,7 @@ class VarListConfig {
 @ExtendedMetaData(name="varListPlain", kind="elementOnly")
 class VarListPlain {
 	@ExtendedMetaData(kind="element", name="variable", namespace="##targetNamespace")
-	contains VariableType6[] variable
+	contains PlainVariable[] variable
 	@ExtendedMetaData(kind="element", name="addData", namespace="##targetNamespace")
 	contains AddData addData
 	@ExtendedMetaData(kind="element", name="documentation", namespace="##targetNamespace")
