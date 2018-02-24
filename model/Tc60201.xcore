@@ -1,6 +1,6 @@
 @Ecore(nsURI="http://www.plcopen.org/xml/tc6_0201")
 @GenModel(bundleManifest="false", forceOverwrite="true", modelDirectory="org.plcopen.xcore/src/main/src-gen",
-	modelName="PlcOpen", complianceLevel="8.0", updateClasspath="false")
+	modelName="PlcOpen", complianceLevel="8.0", updateClasspath="true")
 package org.plcopen.xml.tc60201
 
 import org.eclipse.emf.common.util.Enumerator
