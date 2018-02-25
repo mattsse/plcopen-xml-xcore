@@ -46,6 +46,11 @@ interface LocalIdElement {
 	UnsignedLong[1] localId
 }
 
+interface ContentProvider {
+	@ExtendedMetaData(kind="element", name="content", namespace="##targetNamespace")
+	String content
+}
+
 @GenModel(documentation="Defines the different access types to an\n\t\t\t\taccessVariable")
 @ExtendedMetaData(name="accessType")
 enum AccessType {
@@ -240,11 +245,9 @@ class Coil  extends GlobalIdElement, LocalIdElement,SizedElement ,AddDataElement
 }
 
 @ExtendedMetaData(name="comment_._type", kind="elementOnly")
-class Comment  extends GlobalIdElement,LocalIdElement,SizedElement, AddDataElement, DocumentationElement{
+class Comment  extends GlobalIdElement,LocalIdElement,ContentProvider,SizedElement, AddDataElement, DocumentationElement{
 	@ExtendedMetaData(kind="element", name="position", namespace="##targetNamespace")
 	contains Position[1] position
-	@ExtendedMetaData(kind="element", name="content", namespace="##targetNamespace")
-	String content
 }
 
 @ExtendedMetaData(name="condition_._type", kind="elementOnly")
@@ -565,11 +568,9 @@ class Enum {
 
 @GenModel(documentation="Describes a graphical object representing a\n\t\t\t\t\t\t\tconversion error. Used to keep information which can not be\n\t\t\t\t\t\t\tinterpreted by the importing system")
 @ExtendedMetaData(name="error_._type", kind="elementOnly")
-class Error  extends GlobalIdElement,LocalIdElement,SizedElement,AddDataElement, DocumentationElement {
+class Error  extends GlobalIdElement,ContentProvider,LocalIdElement,SizedElement,AddDataElement, DocumentationElement {
 	@ExtendedMetaData(kind="element", name="position", namespace="##targetNamespace")
 	contains Position[1] position
-	@ExtendedMetaData(kind="element", name="content", namespace="##targetNamespace")
-	contains FormattedText[1] content
 }
 
 @ExtendedMetaData(name="externalVars_._type", kind="elementOnly")
