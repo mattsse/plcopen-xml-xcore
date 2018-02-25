@@ -36,3 +36,5 @@ serde.writeXML(resource, "output/plcopen.xml");
 ```
 
 Reading/Writing XMI models using the analogous methods of the `PlcOpenSerializer`.
+
+See [More demos in the `PlcOpenSerializeTest` test.](src/test/test/java/org/plcopen/xcore/serde/PlcOpenSerializeTest.java)
