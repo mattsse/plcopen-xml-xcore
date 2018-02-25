@@ -1,7 +1,6 @@
 @Ecore(nsURI="http://www.plcopen.org/xml/tc6_0201")
 @GenModel(bundleManifest="false", forceOverwrite="true", modelDirectory="org.plcopen.xcore/src/main/src-gen",
 	modelName="PlcOpen", complianceLevel="8.0", updateClasspath="true")
-@ExtendedMetaData(qualified="false")
 package org.plcopen.xml.tc60201
 
 import org.eclipse.emf.common.util.Enumerator
@@ -200,9 +199,9 @@ class Block {
 @ExtendedMetaData(name="body", kind="elementOnly")
 class Body {
 	@ExtendedMetaData(kind="element", name="IL", namespace="##targetNamespace")
-	contains FormattedText iL
+	String iL
 	@ExtendedMetaData(kind="element", name="ST", namespace="##targetNamespace")
-	contains FormattedText sT
+	String sT
 	@ExtendedMetaData(kind="element", name="FBD", namespace="##targetNamespace")
 	contains FBD fBD
 	@ExtendedMetaData(kind="element", name="LD", namespace="##targetNamespace")
@@ -259,7 +258,7 @@ class Comment {
 	@ExtendedMetaData(kind="element", name="position", namespace="##targetNamespace")
 	contains Position[1] position
 	@ExtendedMetaData(kind="element", name="content", namespace="##targetNamespace")
-	contains FormattedText[1] content
+	String content
 	@ExtendedMetaData(kind="element", name="addData", namespace="##targetNamespace")
 	contains AddData addData
 	@ExtendedMetaData(kind="element", name="documentation", namespace="##targetNamespace")
@@ -513,71 +512,73 @@ class CoordinateInfo {
 	contains SfcTypeInfo[1] sfc
 }
 
+class PrimitiveType {}
+
 @GenModel(documentation="A generic data type")
 @ExtendedMetaData(name="dataType", kind="elementOnly")
 class DataType {
 	@ExtendedMetaData(kind="element", name="BOOL", namespace="##targetNamespace")
-	contains EObject bOOL
+	contains PrimitiveType bOOL
 	@ExtendedMetaData(kind="element", name="BYTE", namespace="##targetNamespace")
-	contains EObject bYTE
+	contains PrimitiveType bYTE
 	@ExtendedMetaData(kind="element", name="WORD", namespace="##targetNamespace")
-	contains EObject wORD
+	contains PrimitiveType wORD
 	@ExtendedMetaData(kind="element", name="DWORD", namespace="##targetNamespace")
-	contains EObject dWORD
+	contains PrimitiveType dWORD
 	@ExtendedMetaData(kind="element", name="LWORD", namespace="##targetNamespace")
-	contains EObject lWORD
+	contains PrimitiveType lWORD
 	@ExtendedMetaData(kind="element", name="SINT", namespace="##targetNamespace")
-	contains EObject sINT
+	contains PrimitiveType sINT
 	@ExtendedMetaData(kind="element", name="INT", namespace="##targetNamespace")
-	contains EObject iNT
+	contains PrimitiveType iNT
 	@ExtendedMetaData(kind="element", name="DINT", namespace="##targetNamespace")
-	contains EObject dINT
+	contains PrimitiveType dINT
 	@ExtendedMetaData(kind="element", name="LINT", namespace="##targetNamespace")
-	contains EObject lINT
+	contains PrimitiveType lINT
 	@ExtendedMetaData(kind="element", name="USINT", namespace="##targetNamespace")
-	contains EObject uSINT
+	contains PrimitiveType uSINT
 	@ExtendedMetaData(kind="element", name="UINT", namespace="##targetNamespace")
-	contains EObject uINT
+	contains PrimitiveType uINT
 	@ExtendedMetaData(kind="element", name="UDINT", namespace="##targetNamespace")
-	contains EObject uDINT
+	contains PrimitiveType uDINT
 	@ExtendedMetaData(kind="element", name="ULINT", namespace="##targetNamespace")
-	contains EObject uLINT
+	contains PrimitiveType uLINT
 	@ExtendedMetaData(kind="element", name="REAL", namespace="##targetNamespace")
-	contains EObject rEAL
+	contains PrimitiveType rEAL
 	@ExtendedMetaData(kind="element", name="LREAL", namespace="##targetNamespace")
-	contains EObject lREAL
+	contains PrimitiveType lREAL
 	@ExtendedMetaData(kind="element", name="TIME", namespace="##targetNamespace")
-	contains EObject tIME
+	contains PrimitiveType tIME
 	@ExtendedMetaData(kind="element", name="DATE", namespace="##targetNamespace")
-	contains EObject dATE
+	contains PrimitiveType dATE
 	@ExtendedMetaData(kind="element", name="DT", namespace="##targetNamespace")
-	contains EObject dT
+	contains PrimitiveType dT
 	@ExtendedMetaData(kind="element", name="TOD", namespace="##targetNamespace")
-	contains EObject tOD
+	contains PrimitiveType tOD
 	@ExtendedMetaData(kind="element", name="string", namespace="##targetNamespace")
 	contains StringType string
 	@ExtendedMetaData(kind="element", name="wstring", namespace="##targetNamespace")
 	contains Wstring wstring
 	@ExtendedMetaData(kind="element", name="ANY", namespace="##targetNamespace")
-	contains EObject aNY
+	contains PrimitiveType aNY
 	@ExtendedMetaData(kind="element", name="ANY_DERIVED", namespace="##targetNamespace")
-	contains EObject aNYDERIVED
+	contains PrimitiveType aNYDERIVED
 	@ExtendedMetaData(kind="element", name="ANY_ELEMENTARY", namespace="##targetNamespace")
-	contains EObject aNYELEMENTARY
+	contains PrimitiveType aNYELEMENTARY
 	@ExtendedMetaData(kind="element", name="ANY_MAGNITUDE", namespace="##targetNamespace")
-	contains EObject aNYMAGNITUDE
+	contains PrimitiveType aNYMAGNITUDE
 	@ExtendedMetaData(kind="element", name="ANY_NUM", namespace="##targetNamespace")
-	contains EObject aNYNUM
+	contains PrimitiveType aNYNUM
 	@ExtendedMetaData(kind="element", name="ANY_REAL", namespace="##targetNamespace")
-	contains EObject aNYREAL
+	contains PrimitiveType aNYREAL
 	@ExtendedMetaData(kind="element", name="ANY_INT", namespace="##targetNamespace")
-	contains EObject aNYINT
+	contains PrimitiveType aNYINT
 	@ExtendedMetaData(kind="element", name="ANY_BIT", namespace="##targetNamespace")
-	contains EObject aNYBIT
+	contains PrimitiveType aNYBIT
 	@ExtendedMetaData(kind="element", name="ANY_STRING", namespace="##targetNamespace")
-	contains EObject aNYSTRING
+	contains PrimitiveType aNYSTRING
 	@ExtendedMetaData(kind="element", name="ANY_DATE", namespace="##targetNamespace")
-	contains EObject aNYDATE
+	contains PrimitiveType aNYDATE
 	@ExtendedMetaData(kind="element", name="array", namespace="##targetNamespace")
 	contains Array array
 	@GenModel(documentation="Reference to a user defined datatype or POU.\n\t\t\t\t\t\tVariable declarations use this type to declare e.g. function block\n\t\t\t\t\t\tinstances.")
@@ -637,18 +638,18 @@ class Derived {
 	String[1] name
 }
 
-//@ExtendedMetaData(name="", kind="mixed")
-//class DocumentRoot {
-//	@ExtendedMetaData(kind="elementWildcard", name=":mixed")
-//	EFeatureMapEntry[] mixed
-//	@ExtendedMetaData(kind="attribute", name="xmlns:prefix")
-//	contains transient EStringToStringMapEntry[] xMLNSPrefixMap
-//	@ExtendedMetaData(kind="attribute", name="xsi:schemaLocation")
-//	contains transient EStringToStringMapEntry[] xSISchemaLocation
-//	@GenModel(documentation="The complete project")
-//	@ExtendedMetaData(kind="element", name="project", namespace="##targetNamespace")
-//	contains transient volatile derived Project[0..?] project
-//}
+@ExtendedMetaData(name="", kind="mixed")
+class DocumentRoot {
+	@ExtendedMetaData(kind="elementWildcard", name=":mixed")
+	EFeatureMapEntry[] mixed
+	@ExtendedMetaData(kind="attribute", name="xmlns:prefix")
+	contains transient EStringToStringMapEntry[] xMLNSPrefixMap
+	@ExtendedMetaData(kind="attribute", name="xsi:schemaLocation")
+	contains transient EStringToStringMapEntry[] xSISchemaLocation
+	@GenModel(documentation="The complete project")
+	@ExtendedMetaData(kind="element", name="project", namespace="##targetNamespace")
+	contains transient volatile derived Project[0..?] project
+}
 
 @GenModel(documentation="Defines the edge detection behaviour of a variable\n\t\t\t")
 @ExtendedMetaData(name="edgeModifierType")
@@ -861,6 +862,7 @@ class Instances {
 	@ExtendedMetaData(kind="element", name="configurations", namespace="##targetNamespace")
 	contains Configurations[1] configurations
 }
+
 
 @ExtendedMetaData(name="interface_._type", kind="elementOnly")
 class Interface {
@@ -1181,8 +1183,8 @@ class PouInstance {
 	String[1] name
 	@ExtendedMetaData(kind="attribute", name="typeName")
 	String[1] typeName
-	@ExtendedMetaData(kind="attribute", name="type")
-	String[1] ^type
+//	@ExtendedMetaData(kind="attribute", name="type")
+//	String[1] ^type
 }
 
 @ExtendedMetaData(name="pous_._type", kind="elementOnly")
