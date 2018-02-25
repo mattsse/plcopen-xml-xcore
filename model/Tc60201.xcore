@@ -1,5 +1,5 @@
 @Ecore(nsURI="http://www.plcopen.org/xml/tc6_0201")
-@GenModel(bundleManifest="false", forceOverwrite="true", modelDirectory="org.plcopen.xcore/src/main/src-gen",
+@GenModel(bundleManifest="false", forceOverwrite="true", modelDirectory="org.plcopen.xcore/src/main/java-gen",
 	modelName="PlcOpen", complianceLevel="8.0", updateClasspath="true")
 //necessary since this package exceeds the 64k byte code limit 
 @GenModel(loadInitialization="false")

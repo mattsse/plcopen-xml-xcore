@@ -13,3 +13,4 @@ plugin.xml
 build.properties
 plugin.properties
 generated
+java-gen

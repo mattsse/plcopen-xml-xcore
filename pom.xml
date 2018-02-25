@@ -50,7 +50,7 @@
 				<configuration>
 					<filesets>
 						<fileset>
-							<directory>src/main/src-gen</directory>
+							<directory>src/main/java-gen</directory>
 						</fileset>
 						<fileset>
 							<directory>generated</directory>
@@ -71,7 +71,7 @@
 						</goals>
 						<configuration>
 							<sources>
-								<source>${basedir}/src/main/src-gen</source>
+								<source>${basedir}/src/main/java-gen</source>
 								<source>${basedir}/model</source>
 							</sources>
 						</configuration>
@@ -102,7 +102,7 @@
 							<setup>org.eclipse.emf.ecore.xcore.XcoreStandaloneSetup</setup>
 							<outputConfigurations>
 								<outputConfiguration>
-									<outputDirectory>${project.basedir}/src/main/src-gen</outputDirectory>
+									<outputDirectory>${project.basedir}/src/main/java-gen</outputDirectory>
 								</outputConfiguration>
 							</outputConfigurations>
 						</language>

@@ -50,7 +50,6 @@ public class PlcOpenSerializeTest {
 		File xmlFile = new File("examples/minimal.xml");
 		PlcOpenSerializer serializer = new PlcOpenSerializer();
 		serializer.writeXMI(xmlFile, resourceSet, "generated/demo_xmi.xmi");
-
 		URI modelURI = URI.createFileURI(new File("generated/demo_xmi.xmi").getAbsolutePath());
 		serializer.writeXML(resourceSet.getResource(modelURI, true), "generated/demo_generated.xml");
 	}
