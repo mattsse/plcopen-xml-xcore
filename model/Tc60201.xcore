@@ -1,6 +1,7 @@
 @Ecore(nsURI="http://www.plcopen.org/xml/tc6_0201")
 @GenModel(bundleManifest="false", forceOverwrite="true", modelDirectory="org.plcopen.xcore/src/main/src-gen",
 	modelName="PlcOpen", complianceLevel="8.0", updateClasspath="true")
+@ExtendedMetaData(qualified="false")
 package org.plcopen.xml.tc60201
 
 import org.eclipse.emf.common.util.Enumerator
@@ -636,18 +637,18 @@ class Derived {
 	String[1] name
 }
 
-@ExtendedMetaData(name="", kind="mixed")
-class DocumentRoot {
-	@ExtendedMetaData(kind="elementWildcard", name=":mixed")
-	EFeatureMapEntry[] mixed
-	@ExtendedMetaData(kind="attribute", name="xmlns:prefix")
-	contains transient EStringToStringMapEntry[] xMLNSPrefixMap
-	@ExtendedMetaData(kind="attribute", name="xsi:schemaLocation")
-	contains transient EStringToStringMapEntry[] xSISchemaLocation
-	@GenModel(documentation="The complete project")
-	@ExtendedMetaData(kind="element", name="project", namespace="##targetNamespace")
-	contains transient volatile derived Project[0..?] project
-}
+//@ExtendedMetaData(name="", kind="mixed")
+//class DocumentRoot {
+//	@ExtendedMetaData(kind="elementWildcard", name=":mixed")
+//	EFeatureMapEntry[] mixed
+//	@ExtendedMetaData(kind="attribute", name="xmlns:prefix")
+//	contains transient EStringToStringMapEntry[] xMLNSPrefixMap
+//	@ExtendedMetaData(kind="attribute", name="xsi:schemaLocation")
+//	contains transient EStringToStringMapEntry[] xSISchemaLocation
+//	@GenModel(documentation="The complete project")
+//	@ExtendedMetaData(kind="element", name="project", namespace="##targetNamespace")
+//	contains transient volatile derived Project[0..?] project
+//}
 
 @GenModel(documentation="Defines the edge detection behaviour of a variable\n\t\t\t")
 @ExtendedMetaData(name="edgeModifierType")
@@ -744,7 +745,7 @@ class FileHeader {
 	@ExtendedMetaData(kind="attribute", name="contentDescription")
 	String contentDescription
 	@ExtendedMetaData(kind="attribute", name="creationDateTime")
-	DateTime[1] creationDateTime
+	String[1] creationDateTime
 	@ExtendedMetaData(kind="attribute", name="productName")
 	String[1] productName
 	@ExtendedMetaData(kind="attribute", name="productRelease")
@@ -1180,6 +1181,8 @@ class PouInstance {
 	String[1] name
 	@ExtendedMetaData(kind="attribute", name="typeName")
 	String[1] typeName
+	@ExtendedMetaData(kind="attribute", name="type")
+	String[1] ^type
 }
 
 @ExtendedMetaData(name="pous_._type", kind="elementOnly")
@@ -1226,7 +1229,7 @@ type PouTypeObject wraps Enumerator
 	maxInclusive="65535")
 type Priority wraps java.math.BigInteger
 
-@ExtendedMetaData(name="project_._type", kind="elementOnly")
+@ExtendedMetaData(name="project", kind="elementOnly")
 class Project {
 	@ExtendedMetaData(kind="element", name="fileHeader", namespace="##targetNamespace")
 	contains FileHeader[1] fileHeader
