@@ -30,7 +30,7 @@ public class PlcOpenSerializeTest {
 	public void loadXmlTest() throws IOException {
 		File xmlFile = new File("examples/minimal.xml");
 		PlcOpenSerializer serializer = new PlcOpenSerializer();
-		Resource resource = serializer.loadXmlResource(xmlFile);
+		Resource resource = serializer.loadXMLResource(xmlFile);
 		Assert.assertNotNull(resource);
 
 	}
@@ -40,7 +40,7 @@ public class PlcOpenSerializeTest {
 		File xmlFile = new File("examples/minimal.xml");
 		PlcOpenSerializer serializer = new PlcOpenSerializer();
 		serializer.writeXMI(xmlFile, resourceSet, "generated/demo_xmi.xmi");
-		Resource resource = serializer.loadXmiResource(new File("generated/demo_xmi.xmi"));
+		Resource resource = serializer.loadXMIResource(new File("generated/demo_xmi.xmi"));
 		Assert.assertNotNull(resource);
 		resource.save(null);
 	}
