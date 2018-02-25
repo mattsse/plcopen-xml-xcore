@@ -51,6 +51,11 @@ interface ContentProvider {
 	String content
 }
 
+interface ExpressionProvider {
+	@ExtendedMetaData(kind="element", name="expression", namespace="##targetNamespace")
+	String expression
+}
+
 @GenModel(documentation="Defines the different access types to an\n\t\t\t\taccessVariable")
 @ExtendedMetaData(name="accessType")
 enum AccessType {
@@ -311,26 +316,20 @@ class Connection  extends GlobalIdElement, AddDataElement{
 
 @GenModel(documentation="Defines a connection point on the consumer side\n\t\t\t")
 @ExtendedMetaData(name="connectionPointIn", kind="elementOnly")
-class ConnectionPointIn  extends GlobalIdElement, AddDataElement {
+class ConnectionPointIn  extends GlobalIdElement, ExpressionProvider, AddDataElement {
 	@GenModel(documentation="Relative position of the connection pin. Origin\n\t\t\t\t\t\tis the anchor position of the block.")
 	@ExtendedMetaData(kind="element", name="relPosition", namespace="##targetNamespace")
 	contains Position relPosition
 	@ExtendedMetaData(kind="element", name="connection", namespace="##targetNamespace")
 	contains Connection[] connection
-	@GenModel(documentation="The operand is a valid iec variable e.g.\n\t\t\t\t\t\t\tavar[0] or an iec expression or multiple token text e.g. a + b\n\t\t\t\t\t\t\t(*sum*). An iec 61131-3 parser has to be used to extract variable\n\t\t\t\t\t\t\tinformation.")
-	@ExtendedMetaData(kind="element", name="expression", namespace="##targetNamespace")
-	String expression
 }
 
 @GenModel(documentation="Defines a connection point on the producer side\n\t\t\t")
 @ExtendedMetaData(name="connectionPointOut", kind="elementOnly")
-class ConnectionPointOut  extends GlobalIdElement, AddDataElement {
+class ConnectionPointOut  extends GlobalIdElement,ExpressionProvider, AddDataElement {
 	@GenModel(documentation="Relative position of the connection pin. Origin\n\t\t\t\t\t\tis the anchor position of the block.")
 	@ExtendedMetaData(kind="element", name="relPosition", namespace="##targetNamespace")
 	contains Position relPosition
-	@GenModel(documentation="The operand is a valid iec variable e.g.\n\t\t\t\t\t\tavar[0].")
-	@ExtendedMetaData(kind="element", name="expression", namespace="##targetNamespace")
-	String expression
 }
 
 @ExtendedMetaData(name="connectionPointOutAction_._type", kind="elementOnly")
@@ -727,12 +726,9 @@ class Interface extends AddDataElement, DocumentationElement {
 	contains transient volatile derived VarList[] accessVars
 }
 
-abstract class Variable  extends GlobalIdElement,LocalIdElement,SizedElement, AddDataElement, DocumentationElement {
+abstract class Variable  extends GlobalIdElement,ExpressionProvider,LocalIdElement,SizedElement, AddDataElement, DocumentationElement {
 	@ExtendedMetaData(kind="element", name="position", namespace="##targetNamespace")
 	contains Position[1] position
-	@GenModel(documentation="The operand is a valid iec variable e.g.\n\t\t\t\t\t\t\t\t\tavar[0].")
-	@ExtendedMetaData(kind="element", name="expression", namespace="##targetNamespace")
-	String[1] expression
 	@ExtendedMetaData(kind="attribute", name="executionOrderId")
 	UnsignedLong executionOrderId
 }
@@ -1354,57 +1350,40 @@ class EnumerationValue extends NamedElement {
 	String value
 }
 
-@GenModel(documentation="Describes an inputVariable of a Function\n\t\t\t\t\t\t\t\t\t\t\t\t\tor a FunctionBlock")
-@ExtendedMetaData(name="variable_._type", kind="elementOnly")
-class InputFunctionVariable extends DocumentationElement {
-	@ExtendedMetaData(kind="element", name="connectionPointIn", namespace="##targetNamespace")
-	contains ConnectionPointIn[1] connectionPointIn
-	@ExtendedMetaData(kind="attribute", name="edge")
-	unsettable EdgeModifierType edge = "none"
-	@ExtendedMetaData(kind="attribute", name="formalParameter")
-	String[1] formalParameter
+abstract class FunctionVariable extends DocumentationElement {
 	@ExtendedMetaData(kind="attribute", name="hidden")
 	unsettable Boolean hidden = "false"
 	@ExtendedMetaData(kind="attribute", name="negated")
 	unsettable Boolean negated = "false"
 	@ExtendedMetaData(kind="attribute", name="storage")
 	unsettable StorageModifierType storage = "none"
+	@ExtendedMetaData(kind="attribute", name="formalParameter")
+	String[1] formalParameter
+	@ExtendedMetaData(kind="attribute", name="edge")
+	unsettable EdgeModifierType edge = "none"
+}
+
+@GenModel(documentation="Describes an inputVariable of a Function\n\t\t\t\t\t\t\t\t\t\t\t\t\tor a FunctionBlock")
+@ExtendedMetaData(name="variable_._type", kind="elementOnly")
+class InputFunctionVariable extends FunctionVariable {
+	@ExtendedMetaData(kind="element", name="connectionPointIn", namespace="##targetNamespace")
+	contains ConnectionPointIn[1] connectionPointIn
 }
 
 @GenModel(documentation="Describes a outputVariable of a Function\n\t\t\t\t\t\t\t\t\t\t\t\t\tor a FunctionBlock")
 @ExtendedMetaData(name="variable_._type", kind="elementOnly")
-class OutputFunctionVariable extends DocumentationElement {
+class OutputFunctionVariable extends FunctionVariable {
 	@ExtendedMetaData(kind="element", name="connectionPointOut", namespace="##targetNamespace")
 	contains ConnectionPointOut connectionPointOut
-	@ExtendedMetaData(kind="attribute", name="edge")
-	unsettable EdgeModifierType edge = "none"
-	@ExtendedMetaData(kind="attribute", name="formalParameter")
-	String[1] formalParameter
-	@ExtendedMetaData(kind="attribute", name="hidden")
-	unsettable Boolean hidden = "false"
-	@ExtendedMetaData(kind="attribute", name="negated")
-	unsettable Boolean negated = "false"
-	@ExtendedMetaData(kind="attribute", name="storage")
-	unsettable StorageModifierType storage = "none"
 }
 
 @GenModel(documentation="Describes a inOutVariable of a Function\n\t\t\t\t\t\t\t\t\t\t\t\t\tor a FunctionBlock")
 @ExtendedMetaData(name="variable_._type", kind="elementOnly")
-class InputOutputFunctionVariable extends DocumentationElement{
+class InputOutputFunctionVariable extends FunctionVariable{
 	@ExtendedMetaData(kind="element", name="connectionPointIn", namespace="##targetNamespace")
 	contains ConnectionPointIn connectionPointIn
 	@ExtendedMetaData(kind="element", name="connectionPointOut", namespace="##targetNamespace")
 	contains ConnectionPointOut connectionPointOut
-	@ExtendedMetaData(kind="attribute", name="edge")
-	unsettable EdgeModifierType edge = "none"
-	@ExtendedMetaData(kind="attribute", name="formalParameter")
-	String[1] formalParameter
-	@ExtendedMetaData(kind="attribute", name="hidden")
-	unsettable Boolean hidden = "false"
-	@ExtendedMetaData(kind="attribute", name="negated")
-	unsettable Boolean negated = "false"
-	@ExtendedMetaData(kind="attribute", name="storage")
-	unsettable StorageModifierType storage = "none"
 }
 
 @GenModel(documentation="Declaration of a variable")
