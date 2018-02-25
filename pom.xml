@@ -52,6 +52,9 @@
 						<fileset>
 							<directory>src/main/src-gen</directory>
 						</fileset>
+						<fileset>
+							<directory>generated</directory>
+						</fileset>
 					</filesets>
 				</configuration>
 			</plugin>
@@ -177,6 +180,11 @@
 
 	<dependencies>
 		<dependency>
+			<groupId>org.eclipse.xtext</groupId>
+			<artifactId>org.eclipse.xtext</artifactId>
+			<version>${xtext-version}</version>
+		</dependency>
+		<dependency>
 			<groupId>org.eclipse.emf</groupId>
 			<artifactId>org.eclipse.emf.ecore.xcore.lib</artifactId>
 			<version>${ecore-xcore-lib-version}</version>
@@ -200,6 +208,12 @@
 			<groupId>org.eclipse.emf</groupId>
 			<artifactId>org.eclipse.emf.ecore.xmi</artifactId>
 			<version>${emf-version}</version>
+		</dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>${junit.version}</version>
+			<scope>test</scope>
 		</dependency>
 	</dependencies>
 </project>
