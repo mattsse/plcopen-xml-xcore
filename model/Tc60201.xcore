@@ -19,6 +19,11 @@ interface GlobalIdElement {
 	id ID globalId
 }
 
+interface AddDataElement {
+	@ExtendedMetaData(kind="element", name="addData", namespace="##targetNamespace")
+	contains AddData addData
+}
+
 @GenModel(documentation="Defines the different access types to an\n\t\t\t\taccessVariable")
 @ExtendedMetaData(name="accessType")
 enum AccessType {
@@ -31,11 +36,9 @@ type AccessTypeObject wraps Enumerator
 
 @GenModel(documentation="Declaration of an access variable\n\t\t\t\t\t\t")
 @ExtendedMetaData(name="accessVariable_._type", kind="elementOnly")
-class AccessVariable {
+class AccessVariable extends AddDataElement {
 	@ExtendedMetaData(kind="element", name="type", namespace="##targetNamespace")
 	contains DataType[1] ^type
-	@ExtendedMetaData(kind="element", name="addData", namespace="##targetNamespace")
-	contains AddData addData
 	@ExtendedMetaData(kind="element", name="documentation", namespace="##targetNamespace")
 	contains FormattedText documentation
 	@GenModel(documentation="Name that is visible to the communication\n\t\t\t\t\t\t\t\tpartner")
@@ -49,15 +52,13 @@ class AccessVariable {
 }
 
 @ExtendedMetaData(name="actionBlock_._type", kind="elementOnly")
-class ActionBlock extends GlobalIdElement{
+class ActionBlock extends GlobalIdElement, AddDataElement{
 	@ExtendedMetaData(kind="element", name="position", namespace="##targetNamespace")
 	contains Position[1] position
 	@ExtendedMetaData(kind="element", name="connectionPointIn", namespace="##targetNamespace")
 	contains ConnectionPointIn connectionPointIn
 	@ExtendedMetaData(kind="element", name="action", namespace="##targetNamespace")
 	contains ActionObject[] action
-	@ExtendedMetaData(kind="element", name="addData", namespace="##targetNamespace")
-	contains AddData addData
 	@ExtendedMetaData(kind="element", name="documentation", namespace="##targetNamespace")
 	contains FormattedText documentation
 	@GenModel(documentation="Used to identify the order of execution. Also\n\t\t\t\t\t\t\t\tused to identify one special block if there are several blocks\n\t\t\t\t\t\t\t\twith the same name.")
@@ -81,7 +82,7 @@ class Actions {
 
 @GenModel(documentation="Association of an action with qualifier\n\t\t\t\t\t\t\t\t\t")
 @ExtendedMetaData(name="action_._type", kind="elementOnly")
-class ActionObject extends GlobalIdElement {
+class ActionObject extends GlobalIdElement, AddDataElement {
 	@GenModel(documentation="Relative position of the action. Origin is\n\t\t\t\t\t\t\t\t\t\t\t\tthe anchor position of the action block.")
 	@ExtendedMetaData(kind="element", name="relPosition", namespace="##targetNamespace")
 	contains Position[1] relPosition
@@ -93,8 +94,6 @@ class ActionObject extends GlobalIdElement {
 	contains Inline inline
 	@ExtendedMetaData(kind="element", name="connectionPointOut", namespace="##targetNamespace")
 	contains ConnectionPointOut connectionPointOut
-	@ExtendedMetaData(kind="element", name="addData", namespace="##targetNamespace")
-	contains AddData addData
 	@ExtendedMetaData(kind="element", name="documentation", namespace="##targetNamespace")
 	contains FormattedText documentation
 	@ExtendedMetaData(kind="attribute", name="duration")
@@ -115,11 +114,9 @@ class ActionObject extends GlobalIdElement {
 }
 
 @ExtendedMetaData(name="action_._type", kind="elementOnly")
-class PouAction  extends GlobalIdElement {
+class PouAction  extends GlobalIdElement, AddDataElement {
 	@ExtendedMetaData(kind="element", name="body", namespace="##targetNamespace")
 	contains Body[1] body
-	@ExtendedMetaData(kind="element", name="addData", namespace="##targetNamespace")
-	contains AddData addData
 	@GenModel(documentation="Additional userspecific\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tinformation to the element")
 	@ExtendedMetaData(kind="element", name="documentation", namespace="##targetNamespace")
 	contains FormattedText documentation
@@ -160,7 +157,7 @@ class ArrayValue {
 
 @GenModel(documentation="Describes a graphical object representing a\n\t\t\t\t\t\t\tcall statement")
 @ExtendedMetaData(name="block_._type", kind="elementOnly")
-class Block  extends GlobalIdElement {
+class Block  extends GlobalIdElement, AddDataElement {
 	@GenModel(documentation="Anchor position of the box. Top left corner\n\t\t\t\t\t\t\t\t\texcluding the instance name.")
 	@ExtendedMetaData(kind="element", name="position", namespace="##targetNamespace")
 	contains Position[1] position
@@ -173,8 +170,6 @@ class Block  extends GlobalIdElement {
 	@GenModel(documentation="The list of used output variables (producers)\n\t\t\t\t\t\t\t\t")
 	@ExtendedMetaData(kind="element", name="outputVariables", namespace="##targetNamespace")
 	contains OutputVariables[1] outputVariables
-	@ExtendedMetaData(kind="element", name="addData", namespace="##targetNamespace")
-	contains AddData addData
 	@ExtendedMetaData(kind="element", name="documentation", namespace="##targetNamespace")
 	contains FormattedText documentation
 	@GenModel(documentation="Used to identify the order of execution. Also\n\t\t\t\t\t\t\t\tused to identify one special block if there are several blocks\n\t\t\t\t\t\t\t\twith the same name.")
@@ -194,7 +189,7 @@ class Block  extends GlobalIdElement {
 
 @GenModel(documentation="Implementation part of a POU, action or\n\t\t\t\ttransistion")
 @ExtendedMetaData(name="body", kind="elementOnly")
-class Body  extends GlobalIdElement {
+class Body  extends GlobalIdElement, AddDataElement{
 	@ExtendedMetaData(kind="element", name="IL", namespace="##targetNamespace")
 	String iL
 	@ExtendedMetaData(kind="element", name="ST", namespace="##targetNamespace")
@@ -205,8 +200,6 @@ class Body  extends GlobalIdElement {
 	contains LD lD
 	@ExtendedMetaData(kind="element", name="SFC", namespace="##targetNamespace")
 	contains SFC sFC
-	@ExtendedMetaData(kind="element", name="addData", namespace="##targetNamespace")
-	contains AddData addData
 	@GenModel(documentation="Additional userspecific information to the\n\t\t\t\t\t\telement")
 	@ExtendedMetaData(kind="element", name="documentation", namespace="##targetNamespace")
 	contains FormattedText documentation
@@ -238,7 +231,7 @@ class Body  extends GlobalIdElement {
 
 @GenModel(documentation="Describes a graphical object representing a\n\t\t\t\t\t\t\tboolean variable which can be used as l-value and r-value at the\n\t\t\t\t\t\t\tsame time")
 @ExtendedMetaData(name="coil_._type", kind="elementOnly")
-class Coil  extends GlobalIdElement {
+class Coil  extends GlobalIdElement, AddDataElement {
 	@ExtendedMetaData(kind="element", name="position", namespace="##targetNamespace")
 	contains Position[1] position
 	@ExtendedMetaData(kind="element", name="connectionPointIn", namespace="##targetNamespace")
@@ -248,8 +241,6 @@ class Coil  extends GlobalIdElement {
 	@GenModel(documentation="The operand is a valid boolean iec variable\n\t\t\t\t\t\t\t\t\te.g. avar[0]")
 	@ExtendedMetaData(kind="element", name="variable", namespace="##targetNamespace")
 	String[1] variable
-	@ExtendedMetaData(kind="element", name="addData", namespace="##targetNamespace")
-	contains AddData addData
 	@ExtendedMetaData(kind="element", name="documentation", namespace="##targetNamespace")
 	contains FormattedText documentation
 	@ExtendedMetaData(kind="attribute", name="edge")
@@ -269,13 +260,11 @@ class Coil  extends GlobalIdElement {
 }
 
 @ExtendedMetaData(name="comment_._type", kind="elementOnly")
-class Comment  extends GlobalIdElement{
+class Comment  extends GlobalIdElement, AddDataElement{
 	@ExtendedMetaData(kind="element", name="position", namespace="##targetNamespace")
 	contains Position[1] position
 	@ExtendedMetaData(kind="element", name="content", namespace="##targetNamespace")
 	String content
-	@ExtendedMetaData(kind="element", name="addData", namespace="##targetNamespace")
-	contains AddData addData
 	@ExtendedMetaData(kind="element", name="documentation", namespace="##targetNamespace")
 	contains FormattedText documentation
 	@ExtendedMetaData(kind="attribute", name="height")
@@ -306,7 +295,7 @@ class Configurations {
 
 @GenModel(documentation="Represents a group of resources and\n\t\t\t\t\t\t\t\t\t\t\t\t\t\tglobal variables")
 @ExtendedMetaData(name="configuration_._type", kind="elementOnly")
-class Configuration  extends GlobalIdElement{
+class Configuration  extends GlobalIdElement, AddDataElement{
 	@ExtendedMetaData(kind="element", name="resource", namespace="##targetNamespace")
 	contains Resource[] resource
 	@ExtendedMetaData(kind="element", name="globalVars", namespace="##targetNamespace")
@@ -315,8 +304,6 @@ class Configuration  extends GlobalIdElement{
 	contains VarListAccess accessVars
 	@ExtendedMetaData(kind="element", name="configVars", namespace="##targetNamespace")
 	contains VarListConfig configVars
-	@ExtendedMetaData(kind="element", name="addData", namespace="##targetNamespace")
-	contains AddData addData
 	@GenModel(documentation="Additional userspecific information to\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tthe element")
 	@ExtendedMetaData(kind="element", name="documentation", namespace="##targetNamespace")
 	contains FormattedText documentation
@@ -326,13 +313,11 @@ class Configuration  extends GlobalIdElement{
 
 @GenModel(documentation="Declaration of an access variable\n\t\t\t\t\t\t")
 @ExtendedMetaData(name="configVariable_._type", kind="elementOnly")
-class ConfigVariable {
+class ConfigVariable extends AddDataElement {
 	@ExtendedMetaData(kind="element", name="type", namespace="##targetNamespace")
 	contains DataType[1] ^type
 	@ExtendedMetaData(kind="element", name="initialValue", namespace="##targetNamespace")
 	contains Value initialValue
-	@ExtendedMetaData(kind="element", name="addData", namespace="##targetNamespace")
-	contains AddData addData
 	@ExtendedMetaData(kind="element", name="documentation", namespace="##targetNamespace")
 	contains FormattedText documentation
 	@ExtendedMetaData(kind="attribute", name="address")
@@ -344,12 +329,10 @@ class ConfigVariable {
 
 @GenModel(documentation="Describes a connection between the consumer\n\t\t\t\telement (eg. input variable of a function block) and the producer\n\t\t\t\telement (eg. output variable of a function block). It may contain a\n\t\t\t\tlist of positions that describes the path of the connection.\n\t\t\t")
 @ExtendedMetaData(name="connection", kind="elementOnly")
-class Connection  extends GlobalIdElement{
+class Connection  extends GlobalIdElement, AddDataElement{
 	@GenModel(documentation="All positions of the directed connection path.\n\t\t\t\t\t\tIf any positions are given, the list has to contain the first\n\t\t\t\t\t\t(input pin of the consumer element) as well as the last (output\n\t\t\t\t\t\tpin of the producer element).")
 	@ExtendedMetaData(kind="element", name="position", namespace="##targetNamespace")
 	contains Position[] position
-	@ExtendedMetaData(kind="element", name="addData", namespace="##targetNamespace")
-	contains AddData addData
 	@GenModel(documentation="If present:\n\t\t\t\t\tThis attribute denotes the name of the VAR_OUTPUT / VAR_IN_OUTparameter\n\t\t\t\t\tof the pou block that is the start of the connection.\n\t\t\t\t\tIf not present:\n\t\t\t\t\tIf the refLocalId attribute refers to a pou block, the start of the\n\t\t\t\t\tconnection is the first output of this block, which is not ENO.\n\t\t\t\t\tIf the refLocalId attribute refers to any other element type, the\n\t\t\t\t\tstart of the connection is the elements single native output.\n\t\t\t\t")
 	@ExtendedMetaData(kind="attribute", name="formalParameter")
 	String formalParameter
@@ -360,7 +343,7 @@ class Connection  extends GlobalIdElement{
 
 @GenModel(documentation="Defines a connection point on the consumer side\n\t\t\t")
 @ExtendedMetaData(name="connectionPointIn", kind="elementOnly")
-class ConnectionPointIn  extends GlobalIdElement {
+class ConnectionPointIn  extends GlobalIdElement, AddDataElement {
 	@GenModel(documentation="Relative position of the connection pin. Origin\n\t\t\t\t\t\tis the anchor position of the block.")
 	@ExtendedMetaData(kind="element", name="relPosition", namespace="##targetNamespace")
 	contains Position relPosition
@@ -369,21 +352,17 @@ class ConnectionPointIn  extends GlobalIdElement {
 	@GenModel(documentation="The operand is a valid iec variable e.g.\n\t\t\t\t\t\t\tavar[0] or an iec expression or multiple token text e.g. a + b\n\t\t\t\t\t\t\t(*sum*). An iec 61131-3 parser has to be used to extract variable\n\t\t\t\t\t\t\tinformation.")
 	@ExtendedMetaData(kind="element", name="expression", namespace="##targetNamespace")
 	String expression
-	@ExtendedMetaData(kind="element", name="addData", namespace="##targetNamespace")
-	contains AddData addData
 }
 
 @GenModel(documentation="Defines a connection point on the producer side\n\t\t\t")
 @ExtendedMetaData(name="connectionPointOut", kind="elementOnly")
-class ConnectionPointOut  extends GlobalIdElement {
+class ConnectionPointOut  extends GlobalIdElement, AddDataElement {
 	@GenModel(documentation="Relative position of the connection pin. Origin\n\t\t\t\t\t\tis the anchor position of the block.")
 	@ExtendedMetaData(kind="element", name="relPosition", namespace="##targetNamespace")
 	contains Position relPosition
 	@GenModel(documentation="The operand is a valid iec variable e.g.\n\t\t\t\t\t\tavar[0].")
 	@ExtendedMetaData(kind="element", name="expression", namespace="##targetNamespace")
 	String expression
-	@ExtendedMetaData(kind="element", name="addData", namespace="##targetNamespace")
-	contains AddData addData
 }
 
 @ExtendedMetaData(name="connectionPointOutAction_._type", kind="elementOnly")
@@ -400,13 +379,11 @@ class FormalConnectionPointOut extends ConnectionPointOut {
 
 @GenModel(documentation="Describes a graphical object representing a\n\t\t\t\t\t\t\tvariable, literal or expression used as r-value\n\t\t\t\t\t\t")
 @ExtendedMetaData(name="connector_._type", kind="elementOnly")
-class Connector  extends GlobalIdElement {
+class Connector  extends GlobalIdElement, AddDataElement {
 	@ExtendedMetaData(kind="element", name="position", namespace="##targetNamespace")
 	contains Position[1] position
 	@ExtendedMetaData(kind="element", name="connectionPointIn", namespace="##targetNamespace")
 	contains ConnectionPointIn connectionPointIn
-	@ExtendedMetaData(kind="element", name="addData", namespace="##targetNamespace")
-	contains AddData addData
 	@ExtendedMetaData(kind="element", name="documentation", namespace="##targetNamespace")
 	contains FormattedText documentation
 	@ExtendedMetaData(kind="attribute", name="height")
@@ -422,7 +399,7 @@ class Connector  extends GlobalIdElement {
 
 @GenModel(documentation="Describes a graphical object representing a\n\t\t\t\t\t\t\tvariable which can be used as l-value and r-value at the same\n\t\t\t\t\t\t\ttime")
 @ExtendedMetaData(name="contact_._type", kind="elementOnly")
-class Contact  extends GlobalIdElement {
+class Contact  extends GlobalIdElement, AddDataElement {
 	@ExtendedMetaData(kind="element", name="position", namespace="##targetNamespace")
 	contains Position[1] position
 	@ExtendedMetaData(kind="element", name="connectionPointIn", namespace="##targetNamespace")
@@ -432,8 +409,6 @@ class Contact  extends GlobalIdElement {
 	@GenModel(documentation="The operand is a valid boolean iec variable\n\t\t\t\t\t\t\t\t\te.g. avar[0]")
 	@ExtendedMetaData(kind="element", name="variable", namespace="##targetNamespace")
 	String[1] variable
-	@ExtendedMetaData(kind="element", name="addData", namespace="##targetNamespace")
-	contains AddData addData
 	@ExtendedMetaData(kind="element", name="documentation", namespace="##targetNamespace")
 	contains FormattedText documentation
 	@ExtendedMetaData(kind="attribute", name="edge")
@@ -453,15 +428,13 @@ class Contact  extends GlobalIdElement {
 }
 
 @ExtendedMetaData(name="contentHeader_._type", kind="elementOnly")
-class ContentHeader {
+class ContentHeader extends AddDataElement {
 	@ExtendedMetaData(kind="element", name="Comment", namespace="##targetNamespace")
 	String comment
 	@ExtendedMetaData(kind="element", name="coordinateInfo", namespace="##targetNamespace")
 	contains CoordinateInfo[1] coordinateInfo
 	@ExtendedMetaData(kind="element", name="addDataInfo", namespace="##targetNamespace")
 	contains AddDataInfo addDataInfo
-	@ExtendedMetaData(kind="element", name="addData", namespace="##targetNamespace")
-	contains AddData addData
 	@ExtendedMetaData(kind="attribute", name="author")
 	String author
 	@GenModel(documentation="Documentation language of the project e.g.\n\t\t\t\t\t\t\t\t\t\"en-US\"")
@@ -479,13 +452,11 @@ class ContentHeader {
 
 @GenModel(documentation="Describes a graphical object representing a\n\t\t\t\t\t\t\tvariable, literal or expression used as r-value\n\t\t\t\t\t\t")
 @ExtendedMetaData(name="continuation_._type", kind="elementOnly")
-class Continuation  extends GlobalIdElement {
+class Continuation  extends GlobalIdElement, AddDataElement {
 	@ExtendedMetaData(kind="element", name="position", namespace="##targetNamespace")
 	contains Position[1] position
 	@ExtendedMetaData(kind="element", name="connectionPointOut", namespace="##targetNamespace")
 	contains ConnectionPointOut connectionPointOut
-	@ExtendedMetaData(kind="element", name="addData", namespace="##targetNamespace")
-	contains AddData addData
 	@ExtendedMetaData(kind="element", name="documentation", namespace="##targetNamespace")
 	contains FormattedText documentation
 	@ExtendedMetaData(kind="attribute", name="height")
@@ -615,13 +586,11 @@ class DataTypes {
 }
 
 @ExtendedMetaData(name="dataType_._type", kind="elementOnly")
-class DataTypeType {
+class DataTypeType extends AddDataElement{
 	@ExtendedMetaData(kind="element", name="baseType", namespace="##targetNamespace")
 	contains DataType[1] baseType
 	@ExtendedMetaData(kind="element", name="initialValue", namespace="##targetNamespace")
 	contains Value initialValue
-	@ExtendedMetaData(kind="element", name="addData", namespace="##targetNamespace")
-	contains AddData addData
 	@GenModel(documentation="Additional userspecific information to\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tthe element")
 	@ExtendedMetaData(kind="element", name="documentation", namespace="##targetNamespace")
 	contains FormattedText documentation
@@ -631,9 +600,7 @@ class DataTypeType {
 
 @GenModel(documentation="The user defined alias type")
 @ExtendedMetaData(name="derived_._type", kind="elementOnly")
-class Derived {
-	@ExtendedMetaData(kind="element", name="addData", namespace="##targetNamespace")
-	contains AddData addData
+class Derived extends AddDataElement {
 	@ExtendedMetaData(kind="attribute", name="name")
 	String[1] name
 }
@@ -672,13 +639,11 @@ class Enum {
 
 @GenModel(documentation="Describes a graphical object representing a\n\t\t\t\t\t\t\tconversion error. Used to keep information which can not be\n\t\t\t\t\t\t\tinterpreted by the importing system")
 @ExtendedMetaData(name="error_._type", kind="elementOnly")
-class Error  extends GlobalIdElement {
+class Error  extends GlobalIdElement, AddDataElement {
 	@ExtendedMetaData(kind="element", name="position", namespace="##targetNamespace")
 	contains Position[1] position
 	@ExtendedMetaData(kind="element", name="content", namespace="##targetNamespace")
 	contains FormattedText[1] content
-	@ExtendedMetaData(kind="element", name="addData", namespace="##targetNamespace")
-	contains AddData addData
 	@ExtendedMetaData(kind="element", name="documentation", namespace="##targetNamespace")
 	contains FormattedText documentation
 	@ExtendedMetaData(kind="attribute", name="height")
@@ -822,7 +787,7 @@ class Instances {
 }
 
 @ExtendedMetaData(name="interface_._type", kind="elementOnly")
-class Interface {
+class Interface extends AddDataElement {
 	@ExtendedMetaData(kind="element", name="returnType", namespace="##targetNamespace")
 	contains DataType returnType
 	@ExtendedMetaData(kind="group", name="group:1")
@@ -843,18 +808,14 @@ class Interface {
 	contains transient volatile derived GlobalVars[] globalVars
 	@ExtendedMetaData(kind="element", name="accessVars", namespace="##targetNamespace", group="#group:1")
 	contains transient volatile derived VarList[] accessVars
-	@ExtendedMetaData(kind="element", name="addData", namespace="##targetNamespace")
-	contains AddData addData
 	@GenModel(documentation="Additional userspecific information\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tto the element")
 	@ExtendedMetaData(kind="element", name="documentation", namespace="##targetNamespace")
 	contains FormattedText documentation
 }
 
-abstract class Variable  extends GlobalIdElement {
+abstract class Variable  extends GlobalIdElement, AddDataElement {
 	@ExtendedMetaData(kind="element", name="position", namespace="##targetNamespace")
 	contains Position[1] position
-	@ExtendedMetaData(kind="element", name="addData", namespace="##targetNamespace")
-	contains AddData addData
 	@ExtendedMetaData(kind="element", name="documentation", namespace="##targetNamespace")
 	String documentation
 	@GenModel(documentation="The operand is a valid iec variable e.g.\n\t\t\t\t\t\t\t\t\tavar[0].")
@@ -918,13 +879,11 @@ class InOutVariable extends Variable {
 }
 
 @ExtendedMetaData(name="jumpStep_._type", kind="elementOnly")
-class JumpStep  extends GlobalIdElement {
+class JumpStep  extends GlobalIdElement, AddDataElement {
 	@ExtendedMetaData(kind="element", name="position", namespace="##targetNamespace")
 	contains Position[1] position
 	@ExtendedMetaData(kind="element", name="connectionPointIn", namespace="##targetNamespace")
 	contains ConnectionPointIn connectionPointIn
-	@ExtendedMetaData(kind="element", name="addData", namespace="##targetNamespace")
-	contains AddData addData
 	@ExtendedMetaData(kind="element", name="documentation", namespace="##targetNamespace")
 	contains FormattedText documentation
 	@GenModel(documentation="Used to identify the order of execution. Also\n\t\t\t\t\t\t\t\tused to identify one special block if there are several blocks\n\t\t\t\t\t\t\t\twith the same name.")
@@ -942,13 +901,11 @@ class JumpStep  extends GlobalIdElement {
 
 @GenModel(documentation="Describes a graphical object representing a\n\t\t\t\t\t\t\tjump statement")
 @ExtendedMetaData(name="jump_._type", kind="elementOnly")
-class Jump  extends GlobalIdElement {
+class Jump  extends GlobalIdElement, AddDataElement {
 	@ExtendedMetaData(kind="element", name="position", namespace="##targetNamespace")
 	contains Position[1] position
 	@ExtendedMetaData(kind="element", name="connectionPointIn", namespace="##targetNamespace")
 	contains ConnectionPointIn connectionPointIn
-	@ExtendedMetaData(kind="element", name="addData", namespace="##targetNamespace")
-	contains AddData addData
 	@ExtendedMetaData(kind="element", name="documentation", namespace="##targetNamespace")
 	contains FormattedText documentation
 	@ExtendedMetaData(kind="attribute", name="executionOrderId")
@@ -965,11 +922,9 @@ class Jump  extends GlobalIdElement {
 
 @GenModel(documentation="Describes a graphical object representing a\n\t\t\t\t\t\t\tjump label")
 @ExtendedMetaData(name="label_._type", kind="elementOnly")
-class Label  extends GlobalIdElement {
+class Label  extends GlobalIdElement, AddDataElement {
 	@ExtendedMetaData(kind="element", name="position", namespace="##targetNamespace")
 	contains Position[1] position
-	@ExtendedMetaData(kind="element", name="addData", namespace="##targetNamespace")
-	contains AddData addData
 	@ExtendedMetaData(kind="element", name="documentation", namespace="##targetNamespace")
 	contains FormattedText documentation
 	@ExtendedMetaData(kind="attribute", name="executionOrderId")
@@ -1036,13 +991,11 @@ class LD {
 
 @GenModel(documentation="Describes a graphical object representing a\n\t\t\t\t\t\t\tleft powerrail")
 @ExtendedMetaData(name="leftPowerRail_._type", kind="elementOnly")
-class LeftPowerRail  extends GlobalIdElement {
+class LeftPowerRail  extends GlobalIdElement, AddDataElement {
 	@ExtendedMetaData(kind="element", name="position", namespace="##targetNamespace")
 	contains Position[1] position
 	@ExtendedMetaData(kind="element", name="connectionPointOut", namespace="##targetNamespace")
 	contains FormalConnectionPointOut[] connectionPointOut
-	@ExtendedMetaData(kind="element", name="addData", namespace="##targetNamespace")
-	contains AddData addData
 	@ExtendedMetaData(kind="element", name="documentation", namespace="##targetNamespace")
 	contains FormattedText documentation
 	@GenModel(documentation="Used to identify the order of execution. Also\n\t\t\t\t\t\t\t\tused to identify one special block if there are several blocks\n\t\t\t\t\t\t\t\twith the same name.")
@@ -1061,7 +1014,7 @@ class LocalVars extends VarList {
 }
 
 @ExtendedMetaData(name="macroStep_._type", kind="elementOnly")
-class MacroStep  extends GlobalIdElement {
+class MacroStep  extends GlobalIdElement, AddDataElement {
 	@ExtendedMetaData(kind="element", name="position", namespace="##targetNamespace")
 	contains Position[1] position
 	@ExtendedMetaData(kind="element", name="connectionPointIn", namespace="##targetNamespace")
@@ -1070,8 +1023,6 @@ class MacroStep  extends GlobalIdElement {
 	contains ConnectionPointOut connectionPointOut
 	@ExtendedMetaData(kind="element", name="body", namespace="##targetNamespace")
 	contains Body body
-	@ExtendedMetaData(kind="element", name="addData", namespace="##targetNamespace")
-	contains AddData addData
 	@ExtendedMetaData(kind="element", name="documentation", namespace="##targetNamespace")
 	contains FormattedText documentation
 	@GenModel(documentation="Used to identify the order of execution. Also\n\t\t\t\t\t\t\t\tused to identify one special block if there are several blocks\n\t\t\t\t\t\t\t\twith the same name.")
@@ -1122,9 +1073,7 @@ class Position {
 
 @GenModel(documentation="Represents a program or function block instance\n\t\t\t\teither running with or without a task")
 @ExtendedMetaData(name="pouInstance", kind="elementOnly")
-class PouInstance  extends GlobalIdElement {
-	@ExtendedMetaData(kind="element", name="addData", namespace="##targetNamespace")
-	contains AddData addData
+class PouInstance  extends GlobalIdElement , AddDataElement{
 	@ExtendedMetaData(kind="element", name="documentation", namespace="##targetNamespace")
 	contains FormattedText documentation
 	@ExtendedMetaData(kind="attribute", name="name")
@@ -1150,7 +1099,7 @@ enum PouType {
 }
 
 @ExtendedMetaData(name="pou_._type", kind="elementOnly")
-class Pou  extends GlobalIdElement {
+class Pou  extends GlobalIdElement, AddDataElement {
 	@ExtendedMetaData(kind="element", name="interface", namespace="##targetNamespace")
 	contains Interface ^interface
 	@ExtendedMetaData(kind="element", name="actions", namespace="##targetNamespace")
@@ -1159,8 +1108,6 @@ class Pou  extends GlobalIdElement {
 	contains SfcTransitions transitions
 	@ExtendedMetaData(kind="element", name="body", namespace="##targetNamespace")
 	contains Body[] body
-	@ExtendedMetaData(kind="element", name="addData", namespace="##targetNamespace")
-	contains AddData addData
 	@GenModel(documentation="Additional userspecific information to\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tthe element")
 	@ExtendedMetaData(kind="element", name="documentation", namespace="##targetNamespace")
 	contains FormattedText documentation
@@ -1178,7 +1125,7 @@ type PouTypeObject wraps Enumerator
 type Priority wraps java.math.BigInteger
 
 @ExtendedMetaData(name="project", kind="elementOnly")
-class Project {
+class Project extends AddDataElement {
 	@ExtendedMetaData(kind="element", name="fileHeader", namespace="##targetNamespace")
 	contains FileHeader[1] fileHeader
 	@ExtendedMetaData(kind="element", name="contentHeader", namespace="##targetNamespace")
@@ -1187,8 +1134,6 @@ class Project {
 	contains Types[1] types
 	@ExtendedMetaData(kind="element", name="instances", namespace="##targetNamespace")
 	contains Instances[1] instances
-	@ExtendedMetaData(kind="element", name="addData", namespace="##targetNamespace")
-	contains AddData addData
 	@GenModel(documentation="Additional userspecific information to the\n\t\t\t\t\t\t\telement")
 	@ExtendedMetaData(kind="element", name="documentation", namespace="##targetNamespace")
 	contains FormattedText documentation
@@ -1247,15 +1192,13 @@ class Reference {
 
 @GenModel(documentation="Represents a group of programs and\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\ttasks and global variables")
 @ExtendedMetaData(name="resource_._type", kind="elementOnly")
-class Resource  extends GlobalIdElement {
+class Resource  extends GlobalIdElement, AddDataElement {
 	@ExtendedMetaData(kind="element", name="task", namespace="##targetNamespace")
 	contains TaskType[] task
 	@ExtendedMetaData(kind="element", name="globalVars", namespace="##targetNamespace")
 	contains VarList[] globalVars
 	@ExtendedMetaData(kind="element", name="pouInstance", namespace="##targetNamespace")
 	contains PouInstance[] pouInstance
-	@ExtendedMetaData(kind="element", name="addData", namespace="##targetNamespace")
-	contains AddData addData
 	@GenModel(documentation="Additional userspecific information\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tto the element")
 	@ExtendedMetaData(kind="element", name="documentation", namespace="##targetNamespace")
 	contains FormattedText documentation
@@ -1265,13 +1208,11 @@ class Resource  extends GlobalIdElement {
 
 @GenModel(documentation="Describes a graphical object representing\n\t\t\t\t\t\t\tareturn statement")
 @ExtendedMetaData(name="return_._type", kind="elementOnly")
-class Return  extends GlobalIdElement {
+class Return  extends GlobalIdElement, AddDataElement {
 	@ExtendedMetaData(kind="element", name="position", namespace="##targetNamespace")
 	contains Position[1] position
 	@ExtendedMetaData(kind="element", name="connectionPointIn", namespace="##targetNamespace")
 	contains ConnectionPointIn connectionPointIn
-	@ExtendedMetaData(kind="element", name="addData", namespace="##targetNamespace")
-	contains AddData addData
 	@ExtendedMetaData(kind="element", name="documentation", namespace="##targetNamespace")
 	contains FormattedText documentation
 	@ExtendedMetaData(kind="attribute", name="executionOrderId")
@@ -1286,13 +1227,11 @@ class Return  extends GlobalIdElement {
 
 @GenModel(documentation="Describes a graphical object representing a\n\t\t\t\t\t\t\tright powerrail")
 @ExtendedMetaData(name="rightPowerRail_._type", kind="elementOnly")
-class RightPowerRail  extends GlobalIdElement {
+class RightPowerRail  extends GlobalIdElement, AddDataElement {
 	@ExtendedMetaData(kind="element", name="position", namespace="##targetNamespace")
 	contains Position[1] position
 	@ExtendedMetaData(kind="element", name="connectionPointIn", namespace="##targetNamespace")
 	contains ConnectionPointIn[] connectionPointIn
-	@ExtendedMetaData(kind="element", name="addData", namespace="##targetNamespace")
-	contains AddData addData
 	@ExtendedMetaData(kind="element", name="documentation", namespace="##targetNamespace")
 	contains FormattedText documentation
 	@GenModel(documentation="Used to identify the order of execution. Also\n\t\t\t\t\t\t\t\tused to identify one special block if there are several blocks\n\t\t\t\t\t\t\t\twith the same name.")
@@ -1315,15 +1254,13 @@ class Scaling {
 }
 
 @ExtendedMetaData(name="selectionConvergence_._type", kind="elementOnly")
-class SelectionConvergence  extends GlobalIdElement {
+class SelectionConvergence  extends GlobalIdElement, AddDataElement {
 	@ExtendedMetaData(kind="element", name="position", namespace="##targetNamespace")
 	contains Position[1] position
 	@ExtendedMetaData(kind="element", name="connectionPointIn", namespace="##targetNamespace")
 	contains ConnectionPointIn[] connectionPointIn
 	@ExtendedMetaData(kind="element", name="connectionPointOut", namespace="##targetNamespace")
 	contains ConnectionPointOut connectionPointOut
-	@ExtendedMetaData(kind="element", name="addData", namespace="##targetNamespace")
-	contains AddData addData
 	@ExtendedMetaData(kind="element", name="documentation", namespace="##targetNamespace")
 	contains FormattedText documentation
 	@ExtendedMetaData(kind="attribute", name="height")
@@ -1335,15 +1272,13 @@ class SelectionConvergence  extends GlobalIdElement {
 }
 
 @ExtendedMetaData(name="selectionDivergence_._type", kind="elementOnly")
-class SelectionDivergenceType  extends GlobalIdElement {
+class SelectionDivergenceType  extends GlobalIdElement, AddDataElement {
 	@ExtendedMetaData(kind="element", name="position", namespace="##targetNamespace")
 	contains Position[1] position
 	@ExtendedMetaData(kind="element", name="connectionPointIn", namespace="##targetNamespace")
 	contains ConnectionPointIn connectionPointIn
 	@ExtendedMetaData(kind="element", name="connectionPointOut", namespace="##targetNamespace")
 	contains FormalConnectionPointOut[] connectionPointOut
-	@ExtendedMetaData(kind="element", name="addData", namespace="##targetNamespace")
-	contains AddData addData
 	@ExtendedMetaData(kind="element", name="documentation", namespace="##targetNamespace")
 	contains FormattedText documentation
 	@ExtendedMetaData(kind="attribute", name="height")
@@ -1429,13 +1364,11 @@ class SimpleValue {
 	String value
 }
 
-abstract class Vergence  extends GlobalIdElement {
+abstract class Vergence  extends GlobalIdElement, AddDataElement {
 	@ExtendedMetaData(kind="element", name="position", namespace="##targetNamespace")
 	contains Position[1] position
 	@ExtendedMetaData(kind="element", name="connectionPointIn", namespace="##targetNamespace")
 	contains ConnectionPointIn[] connectionPointIn
-	@ExtendedMetaData(kind="element", name="addData", namespace="##targetNamespace")
-	contains AddData addData
 	@ExtendedMetaData(kind="element", name="documentation", namespace="##targetNamespace")
 	contains FormattedText documentation
 	@ExtendedMetaData(kind="attribute", name="height")
@@ -1462,7 +1395,7 @@ class SimultaneousDivergence extends Vergence{
 
 @GenModel(documentation="Contains actions")
 @ExtendedMetaData(name="step_._type", kind="elementOnly")
-class Step  extends GlobalIdElement {
+class Step  extends GlobalIdElement, AddDataElement {
 	@ExtendedMetaData(kind="element", name="position", namespace="##targetNamespace")
 	contains Position[1] position
 	@ExtendedMetaData(kind="element", name="connectionPointIn", namespace="##targetNamespace")
@@ -1471,8 +1404,6 @@ class Step  extends GlobalIdElement {
 	contains FormalConnectionPointOut connectionPointOut
 	@ExtendedMetaData(kind="element", name="connectionPointOutAction", namespace="##targetNamespace")
 	contains ConnectionPointOutAction connectionPointOutAction
-	@ExtendedMetaData(kind="element", name="addData", namespace="##targetNamespace")
-	contains AddData addData
 	@ExtendedMetaData(kind="element", name="documentation", namespace="##targetNamespace")
 	contains FormattedText documentation
 	@GenModel(documentation="Used to identify the order of execution. Also\n\t\t\t\t\t\t\t\tused to identify one special block if there are several blocks\n\t\t\t\t\t\t\t\twith the same name.")
@@ -1537,11 +1468,9 @@ class SubrangeUnsigned {
 
 @GenModel(documentation="Represents a periodic or triggered\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\ttask")
 @ExtendedMetaData(name="task_._type", kind="elementOnly")
-class TaskType  extends GlobalIdElement {
+class TaskType  extends GlobalIdElement, AddDataElement {
 	@ExtendedMetaData(kind="element", name="pouInstance", namespace="##targetNamespace")
 	contains PouInstance[] pouInstance
-	@ExtendedMetaData(kind="element", name="addData", namespace="##targetNamespace")
-	contains AddData addData
 	@GenModel(documentation="Additional userspecific\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tinformation to the element")
 	@ExtendedMetaData(kind="element", name="documentation", namespace="##targetNamespace")
 	contains FormattedText documentation
@@ -1567,11 +1496,9 @@ class SfcTransitions {
 }
 
 @ExtendedMetaData(name="transition_._type", kind="elementOnly")
-class SfcTransition  extends GlobalIdElement {
+class SfcTransition  extends GlobalIdElement, AddDataElement {
 	@ExtendedMetaData(kind="element", name="body", namespace="##targetNamespace")
 	contains Body[1] body
-	@ExtendedMetaData(kind="element", name="addData", namespace="##targetNamespace")
-	contains AddData addData
 	@GenModel(documentation="Additional userspecific\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tinformation to the element")
 	@ExtendedMetaData(kind="element", name="documentation", namespace="##targetNamespace")
 	contains FormattedText documentation
@@ -1581,7 +1508,7 @@ class SfcTransition  extends GlobalIdElement {
 
 // sfc
 @ExtendedMetaData(name="transition_._type", kind="elementOnly")
-class PouTransition  extends GlobalIdElement {
+class PouTransition  extends GlobalIdElement, AddDataElement {
 	@ExtendedMetaData(kind="element", name="position", namespace="##targetNamespace")
 	contains Position[1] position
 	@ExtendedMetaData(kind="element", name="connectionPointIn", namespace="##targetNamespace")
@@ -1590,8 +1517,6 @@ class PouTransition  extends GlobalIdElement {
 	contains ConnectionPointOut connectionPointOut
 	@ExtendedMetaData(kind="element", name="condition", namespace="##targetNamespace")
 	contains Condition condition
-	@ExtendedMetaData(kind="element", name="addData", namespace="##targetNamespace")
-	contains AddData addData
 	@ExtendedMetaData(kind="element", name="documentation", namespace="##targetNamespace")
 	contains FormattedText documentation
 	@GenModel(documentation="Used to identify the order of execution. Also\n\t\t\t\t\t\t\t\tused to identify one special block if there are several blocks\n\t\t\t\t\t\t\t\twith the same name.")
@@ -1717,13 +1642,11 @@ class InputOutputFunctionVariable {
 
 @GenModel(documentation="Declaration of a variable")
 @ExtendedMetaData(name="variable_._type", kind="elementOnly")
-class PlainVariable  extends GlobalIdElement {
+class PlainVariable  extends GlobalIdElement, AddDataElement {
 	@ExtendedMetaData(kind="element", name="type", namespace="##targetNamespace")
 	contains DataType[1] ^type
 	@ExtendedMetaData(kind="element", name="initialValue", namespace="##targetNamespace")
 	contains Value initialValue
-	@ExtendedMetaData(kind="element", name="addData", namespace="##targetNamespace")
-	contains AddData addData
 	@ExtendedMetaData(kind="element", name="documentation", namespace="##targetNamespace")
 	contains FormattedText documentation
 	@ExtendedMetaData(kind="attribute", name="address")
@@ -1751,40 +1674,34 @@ class VarList extends VarListPlain {
 
 @GenModel(documentation="List of access variable declarations\n\t\t\t")
 @ExtendedMetaData(name="varListAccess", kind="elementOnly")
-class VarListAccess {
+class VarListAccess extends AddDataElement{
 	@ExtendedMetaData(kind="element", name="accessVariable", namespace="##targetNamespace")
 	contains AccessVariable[] accessVariable
-	@ExtendedMetaData(kind="element", name="addData", namespace="##targetNamespace")
-	contains AddData addData
 	@ExtendedMetaData(kind="element", name="documentation", namespace="##targetNamespace")
 	contains FormattedText documentation
 }
 
 @GenModel(documentation="List of VAR_CONFIG variables")
 @ExtendedMetaData(name="varListConfig", kind="elementOnly")
-class VarListConfig {
+class VarListConfig extends AddDataElement{
 	@ExtendedMetaData(kind="element", name="configVariable", namespace="##targetNamespace")
 	contains ConfigVariable[] configVariable
-	@ExtendedMetaData(kind="element", name="addData", namespace="##targetNamespace")
-	contains AddData addData
 	@ExtendedMetaData(kind="element", name="documentation", namespace="##targetNamespace")
 	contains FormattedText documentation
 }
 
 @GenModel(documentation="List of variable declarations without attributes\n\t\t\t")
 @ExtendedMetaData(name="varListPlain", kind="elementOnly")
-class VarListPlain {
+class VarListPlain extends AddDataElement {
 	@ExtendedMetaData(kind="element", name="variable", namespace="##targetNamespace")
 	contains PlainVariable[] variable
-	@ExtendedMetaData(kind="element", name="addData", namespace="##targetNamespace")
-	contains AddData addData
 	@ExtendedMetaData(kind="element", name="documentation", namespace="##targetNamespace")
 	contains FormattedText documentation
 }
 
 @GenModel(documentation="Describes a graphical object representing a\n\t\t\t\t\t\t\tcall statement")
 @ExtendedMetaData(name="vendorElement_._type", kind="elementOnly")
-class VendorElement  extends GlobalIdElement {
+class VendorElement  extends GlobalIdElement, AddDataElement {
 	@GenModel(documentation="Anchor position of the box. Top left corner\n\t\t\t\t\t\t\t\t\texcluding the instance name.")
 	@ExtendedMetaData(kind="element", name="position", namespace="##targetNamespace")
 	contains Position[1] position
@@ -1801,8 +1718,6 @@ class VendorElement  extends GlobalIdElement {
 	@ExtendedMetaData(kind="element", name="outputVariables", namespace="##targetNamespace")
 	contains OutputVariables outputVariables
 	@GenModel(documentation="Additional, vendor specific data for the\n\t\t\t\t\t\t\t\t\telement. Also defines the vendor specific meaning of the\n\t\t\t\t\t\t\t\t\telement.")
-	@ExtendedMetaData(kind="element", name="addData", namespace="##targetNamespace")
-	contains AddData[1] addData
 	@GenModel(documentation="Used to identify the order of execution. Also\n\t\t\t\t\t\t\t\tused to identify one special block if there are several blocks\n\t\t\t\t\t\t\t\twith the same name.")
 	@ExtendedMetaData(kind="attribute", name="executionOrderId")
 	UnsignedLong executionOrderId
