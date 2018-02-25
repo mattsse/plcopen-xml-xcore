@@ -27,9 +27,13 @@ Create a model first, than save as PlcOpen XML.
 ```java
 // build project
 Project project = Tc6021Factory.eInstance.createProject();
-...
+  ...
+
+Resource resourceSet = new ResourceSetImpl();
 Resource resource = new ResourceImpl();
-resource.eContents().add(project);
+resourceSet.getResources().add(resource);
+resource.getContents().add(project);
+
 PlcOpenSerializer serde = new PlcOpenSerializer();
 serde.writeXML(resource, "output/plcopen.xml");
 
