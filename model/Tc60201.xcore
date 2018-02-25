@@ -5,7 +5,6 @@ package org.plcopen.xml.tc60201
 
 import org.eclipse.emf.common.util.Enumerator
 import org.eclipse.emf.ecore.EFeatureMapEntry
-import org.eclipse.emf.ecore.EObject
 import org.eclipse.emf.ecore.EStringToStringMapEntry
 import org.eclipse.emf.ecore.xml.^type.AnyURI
 import org.eclipse.emf.ecore.xml.^type.DateTime
@@ -13,6 +12,13 @@ import org.eclipse.emf.ecore.xml.^type.Decimal
 import org.eclipse.emf.ecore.xml.^type.ID
 import org.eclipse.emf.ecore.xml.^type.Language
 import org.eclipse.emf.ecore.xml.^type.UnsignedLong
+import org.eclipse.xtext.EcoreUtil2
+
+
+interface GlobalIdElement {
+	@ExtendedMetaData(kind="attribute", name="globalId")
+	id ID globalId
+}
 
 @GenModel(documentation="Defines the different access types to an\n\t\t\t\taccessVariable")
 @ExtendedMetaData(name="accessType")
@@ -78,7 +84,7 @@ class Actions {
 
 @GenModel(documentation="Association of an action with qualifier\n\t\t\t\t\t\t\t\t\t")
 @ExtendedMetaData(name="action_._type", kind="elementOnly")
-class ActionObject {
+class ActionObject extends GlobalIdElement {
 	@GenModel(documentation="Relative position of the action. Origin is\n\t\t\t\t\t\t\t\t\t\t\t\tthe anchor position of the action block.")
 	@ExtendedMetaData(kind="element", name="relPosition", namespace="##targetNamespace")
 	contains Position[1] relPosition
@@ -87,7 +93,7 @@ class ActionObject {
 	contains Reference reference
 	@GenModel(documentation="Inline implementation of an action body.\n\t\t\t\t\t\t\t\t\t\t\t")
 	@ExtendedMetaData(kind="element", name="inline", namespace="##targetNamespace")
-	contains Body inline
+	contains Inline inline
 	@ExtendedMetaData(kind="element", name="connectionPointOut", namespace="##targetNamespace")
 	contains ConnectionPointOut connectionPointOut
 	@ExtendedMetaData(kind="element", name="addData", namespace="##targetNamespace")
@@ -99,8 +105,6 @@ class ActionObject {
 	@GenModel(documentation="Used to identify the order of execution.\n\t\t\t\t\t\t\t\t\t\t\tAlso used to identify one special block if there are several\n\t\t\t\t\t\t\t\t\t\t\tblocks with the same name.")
 	@ExtendedMetaData(kind="attribute", name="executionOrderId")
 	UnsignedLong executionOrderId
-	@ExtendedMetaData(kind="attribute", name="globalId")
-	id ID globalId
 	@ExtendedMetaData(kind="attribute", name="height")
 	Decimal height
 	@ExtendedMetaData(kind="attribute", name="indicator")
@@ -217,6 +221,28 @@ class Body {
 	id ID globalId
 	@ExtendedMetaData(kind="attribute", name="WorksheetName")
 	String worksheetName
+	@GenModel(documentation="Removes all language specific contents for this body.")
+	op void clearContents() {
+		this.IL = null
+		this.ST = null
+		this.FBD = null
+		this.LD = null
+		this.SFC = null
+	}
+	@GenModel(documentation="true if the body contains any contents, false otherwise.")
+	op boolean isEmpty() {
+		if (IL !== null)
+			return false
+		if (ST !== null)
+			return false
+		if (FBD !== null)
+			return false
+		if (LD !== null)
+			return false
+		if (SFC !== null)
+			return false
+		return true
+	}
 }
 
 @GenModel(documentation="Describes a graphical object representing a\n\t\t\t\t\t\t\tboolean variable which can be used as l-value and r-value at the\n\t\t\t\t\t\t\tsame time")
@@ -512,7 +538,8 @@ class CoordinateInfo {
 	contains SfcTypeInfo[1] sfc
 }
 
-class PrimitiveType {}
+class PrimitiveType {
+}
 
 @GenModel(documentation="A generic data type")
 @ExtendedMetaData(name="dataType", kind="elementOnly")
@@ -800,47 +827,7 @@ class Inline extends Body {
 @ExtendedMetaData(name="inOutVariables_._type", kind="elementOnly")
 class InOutVariables {
 	@ExtendedMetaData(kind="element", name="variable", namespace="##targetNamespace")
-	contains InputOutputVariable[] variable
-}
-
-@GenModel(documentation="Describes a graphical object representing a\n\t\t\t\t\t\t\tvariable which can be used as l-value and r-value at the same\n\t\t\t\t\t\t\ttime")
-@ExtendedMetaData(name="inOutVariable_._type", kind="elementOnly")
-class InOutVariable {
-	@ExtendedMetaData(kind="element", name="position", namespace="##targetNamespace")
-	contains Position[1] position
-	@ExtendedMetaData(kind="element", name="connectionPointIn", namespace="##targetNamespace")
-	contains ConnectionPointIn connectionPointIn
-	@ExtendedMetaData(kind="element", name="connectionPointOut", namespace="##targetNamespace")
-	contains ConnectionPointOut connectionPointOut
-	@GenModel(documentation="The operand is a valid iec variable e.g.\n\t\t\t\t\t\t\t\t\tavar[0].")
-	@ExtendedMetaData(kind="element", name="expression", namespace="##targetNamespace")
-	String[1] expression
-	@ExtendedMetaData(kind="element", name="addData", namespace="##targetNamespace")
-	contains AddData addData
-	@ExtendedMetaData(kind="element", name="documentation", namespace="##targetNamespace")
-	contains FormattedText documentation
-	@ExtendedMetaData(kind="attribute", name="edgeIn")
-	unsettable EdgeModifierType edgeIn = "none"
-	@ExtendedMetaData(kind="attribute", name="edgeOut")
-	unsettable EdgeModifierType edgeOut = "none"
-	@ExtendedMetaData(kind="attribute", name="executionOrderId")
-	UnsignedLong executionOrderId
-	@ExtendedMetaData(kind="attribute", name="globalId")
-	id ID globalId
-	@ExtendedMetaData(kind="attribute", name="height")
-	Decimal height
-	@ExtendedMetaData(kind="attribute", name="localId")
-	UnsignedLong[1] localId
-	@ExtendedMetaData(kind="attribute", name="negatedIn")
-	unsettable Boolean negatedIn = "false"
-	@ExtendedMetaData(kind="attribute", name="negatedOut")
-	unsettable Boolean negatedOut = "false"
-	@ExtendedMetaData(kind="attribute", name="storageIn")
-	unsettable StorageModifierType storageIn = "none"
-	@ExtendedMetaData(kind="attribute", name="storageOut")
-	unsettable StorageModifierType storageOut = "none"
-	@ExtendedMetaData(kind="attribute", name="width")
-	Decimal width
+	contains InputOutputFunctionVariable[] variable
 }
 
 @ExtendedMetaData(name="inOutVars_._type", kind="elementOnly")
@@ -850,7 +837,7 @@ class InOutVars extends VarList {
 @ExtendedMetaData(name="inputVariables_._type", kind="elementOnly")
 class InputVariables {
 	@ExtendedMetaData(kind="element", name="variable", namespace="##targetNamespace")
-	contains InputVariable[] variable
+	contains InputFunctionVariable[] variable
 }
 
 @ExtendedMetaData(name="inputVars_._type", kind="elementOnly")
@@ -862,7 +849,6 @@ class Instances {
 	@ExtendedMetaData(kind="element", name="configurations", namespace="##targetNamespace")
 	contains Configurations[1] configurations
 }
-
 
 @ExtendedMetaData(name="interface_._type", kind="elementOnly")
 class Interface {
@@ -893,22 +879,16 @@ class Interface {
 	contains FormattedText documentation
 }
 
-@GenModel(documentation="Describes a graphical object representing a\n\t\t\t\t\t\t\tvariable, literal or expression used as r-value\n\t\t\t\t\t\t")
-@ExtendedMetaData(name="inVariable_._type", kind="elementOnly")
-class InVariable {
+abstract class Variable {
 	@ExtendedMetaData(kind="element", name="position", namespace="##targetNamespace")
 	contains Position[1] position
-	@ExtendedMetaData(kind="element", name="connectionPointOut", namespace="##targetNamespace")
-	contains ConnectionPointOut connectionPointOut
-	@GenModel(documentation="The operand is a valid iec variable e.g.\n\t\t\t\t\t\t\t\t\tavar[0].")
-	@ExtendedMetaData(kind="element", name="expression", namespace="##targetNamespace")
-	String[1] expression
 	@ExtendedMetaData(kind="element", name="addData", namespace="##targetNamespace")
 	contains AddData addData
 	@ExtendedMetaData(kind="element", name="documentation", namespace="##targetNamespace")
-	contains FormattedText documentation
-	@ExtendedMetaData(kind="attribute", name="edge")
-	unsettable EdgeModifierType edge = "none"
+	String documentation
+	@GenModel(documentation="The operand is a valid iec variable e.g.\n\t\t\t\t\t\t\t\t\tavar[0].")
+	@ExtendedMetaData(kind="element", name="expression", namespace="##targetNamespace")
+	String[1] expression
 	@ExtendedMetaData(kind="attribute", name="executionOrderId")
 	UnsignedLong executionOrderId
 	@ExtendedMetaData(kind="attribute", name="globalId")
@@ -917,12 +897,55 @@ class InVariable {
 	Decimal height
 	@ExtendedMetaData(kind="attribute", name="localId")
 	UnsignedLong[1] localId
+	@ExtendedMetaData(kind="attribute", name="width")
+	Decimal width
+}
+
+@GenModel(documentation="Describes a graphical object representing a\n\t\t\t\t\t\t\tvariable, literal or expression used as r-value\n\t\t\t\t\t\t")
+@ExtendedMetaData(name="inVariable_._type", kind="elementOnly")
+class InVariable extends Variable{
+	@ExtendedMetaData(kind="element", name="connectionPointOut", namespace="##targetNamespace")
+	contains ConnectionPointOut connectionPointOut
+	@ExtendedMetaData(kind="attribute", name="edge")
+	unsettable EdgeModifierType edge = "none"
 	@ExtendedMetaData(kind="attribute", name="negated")
 	unsettable Boolean negated = "false"
 	@ExtendedMetaData(kind="attribute", name="storage")
 	unsettable StorageModifierType storage = "none"
-	@ExtendedMetaData(kind="attribute", name="width")
-	Decimal width
+}
+
+@GenModel(documentation="Describes a graphical object representing a\n\t\t\t\t\t\t\tvariable or expression used as l-value")
+@ExtendedMetaData(name="outVariable_._type", kind="elementOnly")
+class OutVariable extends Variable {
+	@ExtendedMetaData(kind="element", name="connectionPointIn", namespace="##targetNamespace")
+	contains ConnectionPointIn connectionPointIn
+	@ExtendedMetaData(kind="attribute", name="edge")
+	unsettable EdgeModifierType edge = "none"
+	@ExtendedMetaData(kind="attribute", name="negated")
+	unsettable Boolean negated = "false"
+	@ExtendedMetaData(kind="attribute", name="storage")
+	unsettable StorageModifierType storage = "none"
+}
+
+@GenModel(documentation="Describes a graphical object representing a\n\t\t\t\t\t\t\tvariable which can be used as l-value and r-value at the same\n\t\t\t\t\t\t\ttime")
+@ExtendedMetaData(name="inOutVariable_._type", kind="elementOnly")
+class InOutVariable extends Variable {
+	@ExtendedMetaData(kind="element", name="connectionPointIn", namespace="##targetNamespace")
+	contains ConnectionPointIn connectionPointIn
+	@ExtendedMetaData(kind="element", name="connectionPointOut", namespace="##targetNamespace")
+	contains ConnectionPointOut connectionPointOut
+	@ExtendedMetaData(kind="attribute", name="edgeIn")
+	unsettable EdgeModifierType edgeIn = "none"
+	@ExtendedMetaData(kind="attribute", name="edgeOut")
+	unsettable EdgeModifierType edgeOut = "none"
+	@ExtendedMetaData(kind="attribute", name="negatedIn")
+	unsettable Boolean negatedIn = "false"
+	@ExtendedMetaData(kind="attribute", name="negatedOut")
+	unsettable Boolean negatedOut = "false"
+	@ExtendedMetaData(kind="attribute", name="storageIn")
+	unsettable StorageModifierType storageIn = "none"
+	@ExtendedMetaData(kind="attribute", name="storageOut")
+	unsettable StorageModifierType storageOut = "none"
 }
 
 @ExtendedMetaData(name="jumpStep_._type", kind="elementOnly")
@@ -1108,43 +1131,11 @@ class MacroStep {
 @ExtendedMetaData(name="outputVariables_._type", kind="elementOnly")
 class OutputVariables {
 	@ExtendedMetaData(kind="element", name="variable", namespace="##targetNamespace")
-	contains OutputVariable[] variable
+	contains OutputFunctionVariable[] variable
 }
 
 @ExtendedMetaData(name="outputVars_._type", kind="elementOnly")
 class OutputVars extends VarList {
-}
-
-@GenModel(documentation="Describes a graphical object representing a\n\t\t\t\t\t\t\tvariable or expression used as l-value")
-@ExtendedMetaData(name="outVariable_._type", kind="elementOnly")
-class OutVariable {
-	@ExtendedMetaData(kind="element", name="position", namespace="##targetNamespace")
-	contains Position[1] position
-	@ExtendedMetaData(kind="element", name="connectionPointIn", namespace="##targetNamespace")
-	contains ConnectionPointIn connectionPointIn
-	@GenModel(documentation="The operand is a valid iec variable e.g.\n\t\t\t\t\t\t\t\t\tavar[0].")
-	@ExtendedMetaData(kind="element", name="expression", namespace="##targetNamespace")
-	String[1] expression
-	@ExtendedMetaData(kind="element", name="addData", namespace="##targetNamespace")
-	contains AddData addData
-	@ExtendedMetaData(kind="element", name="documentation", namespace="##targetNamespace")
-	contains FormattedText documentation
-	@ExtendedMetaData(kind="attribute", name="edge")
-	unsettable EdgeModifierType edge = "none"
-	@ExtendedMetaData(kind="attribute", name="executionOrderId")
-	UnsignedLong executionOrderId
-	@ExtendedMetaData(kind="attribute", name="globalId")
-	id ID globalId
-	@ExtendedMetaData(kind="attribute", name="height")
-	Decimal height
-	@ExtendedMetaData(kind="attribute", name="localId")
-	UnsignedLong[1] localId
-	@ExtendedMetaData(kind="attribute", name="negated")
-	unsettable Boolean negated = "false"
-	@ExtendedMetaData(kind="attribute", name="storage")
-	unsettable StorageModifierType storage = "none"
-	@ExtendedMetaData(kind="attribute", name="width")
-	Decimal width
 }
 
 @ExtendedMetaData(name="pageSize_._type", kind="empty")
@@ -1246,6 +1237,14 @@ class Project {
 	@GenModel(documentation="Additional userspecific information to the\n\t\t\t\t\t\t\telement")
 	@ExtendedMetaData(kind="element", name="documentation", namespace="##targetNamespace")
 	contains FormattedText documentation
+	@GenModel(documentation="All Pous contained in the project tree.")
+	op PouInstance[] allPous() {
+		EcoreUtil2.eAllOfType(this, PouInstance).toEList
+	}
+	@GenModel(documentation="All Variables contained in the project tree.")
+	op Variable[] allVariables() {
+		EcoreUtil2.eAllOfType(this, Variable).toEList
+	}
 }
 
 @ExtendedMetaData(name="qualifier_._type")
@@ -1724,7 +1723,7 @@ class EnumerationValue {
 
 @GenModel(documentation="Describes an inputVariable of a Function\n\t\t\t\t\t\t\t\t\t\t\t\t\tor a FunctionBlock")
 @ExtendedMetaData(name="variable_._type", kind="elementOnly")
-class InputVariable {
+class InputFunctionVariable {
 	@ExtendedMetaData(kind="element", name="connectionPointIn", namespace="##targetNamespace")
 	contains ConnectionPointIn[1] connectionPointIn
 	@ExtendedMetaData(kind="element", name="documentation", namespace="##targetNamespace")
@@ -1743,7 +1742,7 @@ class InputVariable {
 
 @GenModel(documentation="Describes a outputVariable of a Function\n\t\t\t\t\t\t\t\t\t\t\t\t\tor a FunctionBlock")
 @ExtendedMetaData(name="variable_._type", kind="elementOnly")
-class OutputVariable {
+class OutputFunctionVariable {
 	@ExtendedMetaData(kind="element", name="connectionPointOut", namespace="##targetNamespace")
 	contains ConnectionPointOut connectionPointOut
 	@ExtendedMetaData(kind="element", name="documentation", namespace="##targetNamespace")
@@ -1762,7 +1761,7 @@ class OutputVariable {
 
 @GenModel(documentation="Describes a inOutVariable of a Function\n\t\t\t\t\t\t\t\t\t\t\t\t\tor a FunctionBlock")
 @ExtendedMetaData(name="variable_._type", kind="elementOnly")
-class InputOutputVariable {
+class InputOutputFunctionVariable {
 	@ExtendedMetaData(kind="element", name="connectionPointIn", namespace="##targetNamespace")
 	contains ConnectionPointIn connectionPointIn
 	@ExtendedMetaData(kind="element", name="connectionPointOut", namespace="##targetNamespace")
