@@ -4,7 +4,7 @@ Xcore model of the PlcOpen Xml Standard.
 ### Installation
 Comes with maven support. The xtext-maven-plugin generates complete emf model code.
 ```
-git clone https://github.com/MattsSe/plcopen-xml-xcore/tree/master
+git clone https://github.com/MattsSe/plcopen-xml-xcore
 cd plcopen-xml-xcore
 mvn clean install
 ```
@@ -14,8 +14,6 @@ mvn clean install
 #### Load XML
 Parse a PlcOpen XML file
 ```java
-import org.plcopen.xml.tc60201.serde.PlcOpenSerializer;
-
 File xmlFile = new new File("path.xml");
 PlcOpenSerializer serde = new PlcOpenSerializer();
 Resource plcResource = serde.loadXmlResource(xmlFile);
