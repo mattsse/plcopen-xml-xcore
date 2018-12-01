@@ -21,7 +21,7 @@ Resource plcResource = serde.loadXmlResource(xmlFile);
 ```
 
 #### Write Xml
-Create a model first, than save as PlcOpen XML.
+Create a model first, thenn save as PlcOpen XML.
 ```java
 // build project
 Project project = Tc6021Factory.eInstance.createProject();
