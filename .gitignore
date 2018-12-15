@@ -1,5 +1,8 @@
+.gradle/
+!gradle/wrapper/gradle-wrapper.jar
 bin
 target
+build
 xtend-gen
 xtext-gen
 src-gen
