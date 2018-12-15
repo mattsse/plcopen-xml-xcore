@@ -1,5 +1,7 @@
 # PlcOpen-Xml Xcore
 
+[![Build Status](https://travis-ci.com/MattsSe/plcopen-xml-xcore.svg?branch=master)](https://travis-ci.com/MattsSe/plcopen-xml-xcore)
+
 Xcore model of the PlcOpen Xml Standard.
 
 ## Installation
